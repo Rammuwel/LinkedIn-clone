@@ -3,6 +3,7 @@ import logo from '../assets/logo.svg'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
 import { authContext } from '../context/AuthContext';
+import { userDataContext } from '../context/UserContext.jsx';
 
 
 
@@ -14,7 +15,7 @@ function Login() {
     const [err, seterr] = useState("")
     const navigate = useNavigate();
     
-    
+     const {userData, setUserData} = useContext(userDataContext)
     const {serverUrl} = useContext(authContext)
     const handleSignUp = async (e)=>{
         e.preventDefault()
@@ -29,13 +30,14 @@ function Login() {
            if(data.success){
               setEmail("");
               setPassword("");
+              setUserData(data.user)
               navigate("/");
            }else{
               seterr(data.message);
            }
            
         } catch (error) {
-            console.log(error.message)
+            seterr('Server Error: '+ error.message)
             setIsLoadin(false)
         }
     }

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 import logo from '../assets/logo.svg'
 import { Link, useNavigate } from 'react-router-dom'
-import { authContext } from '../context/AuthContext';
+import { authContext } from '../context/AuthContext.jsx';
 import axios from 'axios';
+import { userDataContext } from '../context/UserContext.jsx';
 
 function SignUp() {
     const [show, setShow] = useState(false);
@@ -16,6 +17,7 @@ function SignUp() {
     const navigate = useNavigate();
     
     const {serverUrl} = useContext(authContext);
+    const {userData, setUserData} = useContext(userDataContext)
     
     const handleSignUp = async (e)=>{
         e.preventDefault()
@@ -36,6 +38,7 @@ function SignUp() {
               setUserName("");
               setEmail("");
               setPassword("");
+              setUserData(data.user)
               navigate("/");
            }else{
             seterr(data.message)
