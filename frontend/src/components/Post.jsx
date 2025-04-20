@@ -7,8 +7,10 @@ import moment from 'moment'
 import { authContext } from '../context/AuthContext';
 import axios from 'axios';
 import { userDataContext } from '../context/UserContext';
+import {io} from 'socket.io-client'
+import ConnectionButton from './ConnectionButton';
 
-
+let socket = io("http://localhost:8000")
 function Post({ id, author, like, comment, description, image, createdAt }) {
   const [more, setMore] = useState(false)
   const { serverUrl } = useContext(authContext)
@@ -41,6 +43,24 @@ function Post({ id, author, like, comment, description, image, createdAt }) {
     }
   }
 
+  useEffect(()=>{
+   socket.on("likeUpdated",({postId, likes})=>{
+     if(postId == id){
+      setLikes(likes)
+     }
+   })
+   socket.on("commentUpdated",({postId, comment})=>{
+     if(postId == id){
+      setComments(comment)
+     }
+   })
+
+   return  ()=>{
+    socket.off("likeUpdated")
+    socket.off("commentUpdated")
+   }
+  }, [])
+
   useEffect(() => {
     fetchPosts()
   }, [likes])
@@ -49,6 +69,7 @@ function Post({ id, author, like, comment, description, image, createdAt }) {
   return (
     <div className='w-full  flex flex-col gap-3  p-5 bg-white shadow-lg rounded-lg '>
       <div>
+        <div className='flex items-center justify-between'>
         <div className='flex items-center gap-3'>
           <div className=' cursor-pointer  w-[60px] h-[60px] rounded-full overflow-hidden -z-1'>
             <img src={author.profileImage || userlogo} alt="" className='w-full' />
@@ -58,7 +79,10 @@ function Post({ id, author, like, comment, description, image, createdAt }) {
             <div className='text-gray-500'>{author.headline}</div>
             <div className='text-gray-500'>{moment(createdAt).fromNow()}</div>
           </div>
-
+         
+        </div>
+           { userData._id !== author._id &&
+            <ConnectionButton userId={author._id}/>}
         </div>
         <div className={`text-gray-700 w-full ${!more ? "max-h-[100px] overflow-hidden" : ""}`}>
           {description}
@@ -69,7 +93,7 @@ function Post({ id, author, like, comment, description, image, createdAt }) {
         </div>}
       </div>
       <div className='flex flex-col gap-2 w-full'>
-        {/* button */}
+        
         <div className='flex justify-between items-center w-full'>
           <div className='flex items-center gap-1 text-blue-700'><BiLike /><span>{likes.length}</span></div>
           <div className='flex items-center gap-1 cursor-pointer' onClick={() => setShowCommentsBox(prev => !prev)} ><span>{comments.length} comment</span></div>

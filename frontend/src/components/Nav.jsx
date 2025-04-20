@@ -6,7 +6,7 @@ import { FaUsers } from "react-icons/fa6";
 import { IoIosNotifications } from "react-icons/io";
 import userlogo from '../assets/userlogo.png'
 import { useState } from 'react';
-import { userDataContext } from '../context/userContext';
+import { userDataContext } from '../context/UserContext.jsx';
 import { authContext } from '../context/AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +54,7 @@ function Nav() {
                 </div>
                 <div className=' hidden lg:flex flex-col items-center justify-center text-gray-600'>
                     <FaUsers className='w-[23px] h-[23px]' />
-                    <div>My Network</div>
+                    <div className=' cursor-pointer ' onClick={()=>navigate('/network')}>My Network</div>
                 </div>
                 <div className='flex flex-col items-center justify-center text-gray-600'>
                     <IoIosNotifications className='w-[23px] h-[23px]' />
@@ -76,7 +76,7 @@ function Nav() {
                     <div className='w-full h-[1px] bg-gray-500'></div>
                     <div className='w-full  flex items-center justify-start gap-2 text-gray-600'>
                         <FaUsers className='w-[23px] h-[23px]' />
-                        <div>My Network</div>
+                        <div  className=' cursor-pointer ' onClick={()=>navigate('/network')}>My Network</div>
                     </div>
                     <button onClick={handleLogout} className='w-full h-[40px] rounded-full  border-2 border-[#d47b7b]  text-[#d47b7b]'>Logout</button>
                 </div>}
