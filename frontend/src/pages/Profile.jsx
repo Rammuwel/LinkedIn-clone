@@ -22,11 +22,11 @@ function Profile() {
     const { userData, setUserData, postData, setPostData } = useContext(userDataContext)
     const {serverUrl} = useContext(authContext)
     const [user, setUser] = useState(null)
-    const [id, setId] = useState(useParams().id)
-    console.log(id)
+    // const [id, setId] = useState(useParams().id)
+    const id = useParams().id
+    
+ 
     const [currentUserPost, setCurrentUserPost] = useState([]);
-
-
     const fetchUser = async ()=>{
         try {
             const {data} = await axios.get(`${serverUrl}/api/user/getuser/${id}`, {withCredentials:true})
@@ -39,15 +39,17 @@ function Profile() {
     }
 
     useEffect(()=>{
+        fetchUser()
+    }, [id])
+
+    useEffect(()=>{
         if (user && postData.length > 0) {
             setCurrentUserPost(postData.filter(post => post.author._id === user._id));
         }
     }, [user, postData])
     
 
-    useEffect( ()=>{
-         fetchUser();  
-    },[])
+   
 
 
     return (
@@ -74,7 +76,7 @@ function Profile() {
                        </div>
                         {
                       userData._id === user?._id?
-                    <button onClick={() => setShowEdit(true)} className='w-[100px] my-5 h-[40px] rounded-full  border-2 border-[#2dc0ff] flex items-center justify-center gap-2 text-[#2dc0ff]'>Edit Profile <FaPencilAlt /></button>
+                    <button onClick={() => setShowEdit(true)} className='my-5 py-2 px-3 h-[40px] rounded-full  border-2 border-[#2dc0ff] flex items-center justify-center gap-2 text-[#2dc0ff]'>Edit Profile <FaPencilAlt /></button>
                    : <ConnectionButton userId={user?._id}/>
                  
                      }

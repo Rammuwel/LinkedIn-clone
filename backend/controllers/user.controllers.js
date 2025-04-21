@@ -1,3 +1,4 @@
+
 import uploadOnCloudinary from "../config/cloudinary.js";
 import User from "../models/user.model.js"
 
@@ -80,5 +81,52 @@ export const getUser = async (req, res)=>{
 
     } catch (error) {
         return res.json({success: false, message: error.message});  
+    }
+}
+
+
+export const searchQuery = async (req, res)=>{
+    try {
+     
+        const {query} = req.query
+        console.log(query)
+
+        if(!query){
+            return res.json({success: false, message: "search query is required"})
+        }
+
+        let users = await User.find(
+            {
+                $or:[
+                    {firstName:{$regex: query, $options: "i"}},
+                    {lastName:{$regex: query, $options: "i"}},
+                    {userName:{$regex: query, $options: "i"}},
+                    {skills:{$in:[query]}},
+                   
+                ]
+            }  
+        )
+        return res.json({success:true, users})
+
+    } catch (error) {
+        return res.json({success: false, message: error.message});  
+            
+    }
+}
+
+
+export const getSuggestedUser = async (req, res)=>{
+    try {
+        let currentUser = await User.findById(req.userId).select("connection")
+        let suggestedUsers = await User.find({
+          _id:{
+            $ne:currentUser, $nin:currentUser.connection
+          }
+        }).select("-password")
+
+        return res.status(200).json({success:true, suggestedUsers});
+    } catch (error) {
+        return res.json({success: false, message: error.message});  
+        
     }
 }

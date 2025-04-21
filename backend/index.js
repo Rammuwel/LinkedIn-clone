@@ -10,6 +10,7 @@ import postRouter from './routes/post.routers.js';
 import connectionRouter from './routes/connection.routes.js';
 import { Server } from 'socket.io';
 import { Socket } from 'dgram';
+import notificationRouter from './routes/notification.routes.js';
 dotenv.config()
 
 const port = process.env.PORT || 5000
@@ -39,6 +40,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
 app.use("/api/connection", connectionRouter);
+app.use("/api/notification", notificationRouter);
 
  export const userSocketMap = new Map()
 

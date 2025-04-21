@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Nav from '../components/Nav'
 import userlogo from "../assets/userlogo.png"
 import { FiPlus } from "react-icons/fi";
@@ -11,6 +11,8 @@ import EditProfile from '../components/EditProfile';
 import axios from 'axios';
 import { authContext } from '../context/AuthContext';
 import Post from '../components/Post';
+import { BiCycling } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const { serverUrl } = useContext(authContext);
@@ -20,10 +22,11 @@ function Home() {
   const [description, setDescription] = useState("")
   const [uploadPost, setUploadPost] = useState(false)
   const [postLoadin, setPostLoading] = useState(false)
+  const [suggestedUser, setSuggestedUser] = useState([])
 
   const image = useRef()
 
-
+   const navigate = useNavigate()
   const handleImage = (e) => {
     let file = e.target.files[0]
     setBImage(file)
@@ -50,6 +53,25 @@ function Home() {
       console.log(error.message)
     }
   }
+
+
+  const handleSuggestedUser = async () => {
+    try {
+
+      const {data} =await axios.get(serverUrl + '/api/user/suggesteduser', { withCredentials: true })
+      setSuggestedUser(data.suggestedUsers)
+  
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  useEffect(() => {
+    handleSuggestedUser()
+  }, [userData])
+
+
+
   return (
     <div className='w-full min-h-[100vh] bg-[#eceaea]'>
       {edit && <EditProfile setEdit={setEdit} userData={userData} setUserData={setUserData} />}
@@ -93,8 +115,36 @@ function Home() {
 
 
         {/* left */}
-        <div className='w-full lg:w-[25%] min-h-[200px] bg-white shadow-lg rounded-lg'>
+        <div className='w-full lg:w-[25%]  min-h-[200px] bg-white shadow-lg rounded-l hidden lg:flex flex-col p-2'>
+          <h1 className='text-[20px] font-bold text-gray-700 p-2'>Suggested User</h1>
 
+          {suggestedUser.length > 0 &&
+            <div className='flex flex-col gap-[10px]'>
+              {
+                suggestedUser.map((item, index) => (
+                  <div onClick={() => navigate(`/profile/${item._id}`) } key={index} className='border-b-2 cursor-pointer border-b-gray-200 p-2  flex items-center gap-3'>
+                    <div className='w-[35px] h-[35px] rounded-full overflow-hidden'>
+                      <img src={item.profileImage || userlogo} alt="" className='w-full' />
+                    </div>
+                   <div>
+                   <div className='text-[18px] font-semibold text-gray-700'>
+                      {`${item.firstName} ${item.lastName}`}
+                    </div>
+                    <div className='text-gray-500 font-semibold'>
+                      {item.headline}
+                    </div>
+                   </div>
+                  </div>
+                ))
+              }
+            </div>
+          }
+
+          {suggestedUser.length === 0 &&
+            <div>
+              No Suggested User
+            </div>
+          }
         </div>
       </div>
 
