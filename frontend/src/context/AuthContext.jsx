@@ -1,7 +1,7 @@
 import React, { createContext } from 'react'
 
 export const authContext = createContext();
-const serverUrl = "http://localhost:8000"
+const serverUrl = "https://linkedin-clone-backend-olea.onrender.com"
 
 
 function AuthContext({children}) {
