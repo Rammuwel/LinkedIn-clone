@@ -14,7 +14,7 @@ function Network() {
     const handleGetRequest = async () => {
         try {
             let { data } = await axios.get(serverUrl + "/api/connection/requests", { withCredentials: true })
-            setConnections(data)
+            setConnections(data)           
         } catch (error) {
             console.log(error.message)
         }
@@ -23,6 +23,7 @@ function Network() {
     const handleAcceptConnection = async (requestId)=>{
         try {
             let {data} = await axios.put(`${serverUrl}/api/connection/accept/${requestId}`, {}, {withCredentials:true})
+           
             setConnections(connections.filter((con)=>con._id != requestId))
         } catch (error) {
             console.log(error.message)
@@ -41,7 +42,7 @@ function Network() {
 
     useEffect(() => {
         handleGetRequest()
-    })
+    },[])
     return (
         <>
 
@@ -54,7 +55,7 @@ function Network() {
                     <div className='w-full p-2 bg-white shadow-lg text-gray-600 text-[18px] md:text-[22px] rounded-lg'>
                         {
                             connections.map((connection, index) => (
-                                <div className='flex items-center justify-between border-b-2 border-b-gray-100'>
+                                <div key={index} className='flex items-center justify-between border-b-2 border-b-gray-100'>
                                     <div className='flex items-center gap-2'>
                                         <div  className='cursor-pointer  w-[60px] h-[60px] rounded-full overflow-hidden -z-1'>
                                             <img src={connection.sender.profileImage || userlogo} alt="" className='w-full' />

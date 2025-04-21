@@ -13,7 +13,7 @@ import { authContext } from '../context/AuthContext';
 import Post from '../components/Post';
 
 function Home() {
-  const {serverUrl} = useContext(authContext);
+  const { serverUrl } = useContext(authContext);
   const { userData, postData, setPostData, setUserData, edit, setEdit } = useContext(userDataContext)
   const [fImage, setFImage] = useState("")
   const [bImage, setBImage] = useState("")
@@ -30,24 +30,24 @@ function Home() {
     setFImage(URL.createObjectURL(file))
   }
 
-  const handleUploadPost = async ()=>{
+  const handleUploadPost = async () => {
     try {
       setPostLoading(true)
-       let formData = new FormData();
-       formData.append("description", description)
-       if(bImage){
+      let formData = new FormData();
+      formData.append("description", description)
+      if (bImage) {
         formData.append("image", bImage);
-       }
+      }
 
-       let {data} = await axios.post(serverUrl + "/api/post/create", formData, {withCredentials: true})
-       setBImage('')
-       setFImage('')
-       setDescription('')
-       setPostLoading(false)
-       setUploadPost(false)
+      let { data } = await axios.post(serverUrl + "/api/post/create", formData, { withCredentials: true })
+      setBImage('')
+      setFImage('')
+      setDescription('')
+      setPostLoading(false)
+      setUploadPost(false)
     } catch (error) {
-        setPostLoading(false)
-        console.log(error.message)      
+      setPostLoading(false)
+      console.log(error.message)
     }
   }
   return (
@@ -80,15 +80,15 @@ function Home() {
             <div className=' cursor-pointer  w-[60px] h-[60px] rounded-full overflow-hidden -z-1'>
               <img src={userData.profileImage || userlogo} alt="" className='w-full' />
             </div>
-            <button onClick={()=>setUploadPost(true)} className='w-[80%] h-[60px] border-2 text-start pl-2 rounded-full border-gray-500 hover:bg-slate-200'>start a post</button>
+            <button onClick={() => setUploadPost(true)} className='w-[80%] h-[60px] border-2 text-start pl-2 rounded-full border-gray-500 hover:bg-slate-200'>start a post</button>
           </div>
 
-           {
-            postData.map((post, index)=>(
-              <Post key={index} id={post._id} author={post.author} description={post.description} image={post.image} like={post.like} comment={post.comment} createdAt={post.createdAt}/>
+          {
+            postData.map((post, index) => (
+              <Post key={index} id={post._id} author={post.author} description={post.description} image={post.image} like={post.like} comment={post.comment} createdAt={post.createdAt} />
             ))
-           }
-         
+          }
+
         </div>
 
 
@@ -104,7 +104,7 @@ function Home() {
         </div>
 
         <div className='w-[90%] p-5 max-w-[400px] h-[500px] top-20 m-auto bg-white shadow-lg rounded-lg fixed z-[200]'>
-          <RxCross1 onClick={()=>setUploadPost(false)} className=' cursor-pointer float-right  font-bold text-2xl' />
+          <RxCross1 onClick={() => setUploadPost(false)} className=' cursor-pointer float-right  font-bold text-2xl' />
           <div className='flex items-center gap-2'>
             <div className=' cursor-pointer  w-[60px] h-[60px] rounded-full overflow-hidden -z-1'>
               <img src={userData.profileImage || userlogo} alt="" className='w-full' />
@@ -112,7 +112,7 @@ function Home() {
             <div className='text-[18px] font-semibold text-gray-700'>{`${userData.firstName} ${userData.lastName}`}</div>
 
           </div>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} className={`w-full  ${fImage?"h-[110px]":"h-[250px]"} mt-2 outline-none border p-2 resize-none text-[19px]`} placeholder='What you want to talk about..'></textarea>
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} className={`w-full  ${fImage ? "h-[110px]" : "h-[250px]"} mt-2 outline-none border p-2 resize-none text-[19px]`} placeholder='What you want to talk about..'></textarea>
           <div className='max-h-[200px] overflow-hidden float-right'>
             <img src={fImage || null} alt="" className='h-full' />
           </div>
@@ -124,7 +124,7 @@ function Home() {
             </div>
             <div className='w-full h-[1px] bg-gray-500'></div>
             <div className='flex items-center justify-end'>
-              <button disabled={postLoadin} onClick={handleUploadPost} className='w-24 my-5 h-[40px] rounded-full  border-2 border-[#2dc0ff] flex items-center justify-center gap-2 text-[#2dc0ff]'>{postLoadin?"Posting":"Post"}</button>
+              <button disabled={postLoadin} onClick={handleUploadPost} className='w-24 my-5 h-[40px] rounded-full  border-2 border-[#2dc0ff] flex items-center justify-center gap-2 text-[#2dc0ff]'>{postLoadin ? "Posting" : "Post"}</button>
             </div>
           </div>
         </div>

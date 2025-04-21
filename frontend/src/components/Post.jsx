@@ -9,8 +9,9 @@ import axios from 'axios';
 import { userDataContext } from '../context/UserContext';
 import {io} from 'socket.io-client'
 import ConnectionButton from './ConnectionButton';
+import { useNavigate, useNavigation } from 'react-router-dom';
 
-let socket = io("http://localhost:8000")
+export let socket = io("http://localhost:8000")
 function Post({ id, author, like, comment, description, image, createdAt }) {
   const [more, setMore] = useState(false)
   const { serverUrl } = useContext(authContext)
@@ -20,7 +21,9 @@ function Post({ id, author, like, comment, description, image, createdAt }) {
   const [commentContent, setCommentContent] = useState("")
   const [showCommentBox, setShowCommentBox] = useState(false)
   const [showCommentsBox, setShowCommentsBox] = useState(false)
-  console.log(comments)
+  
+  const navigate = useNavigate()
+
   const addLike = async () => {
 
     try {
@@ -71,7 +74,7 @@ function Post({ id, author, like, comment, description, image, createdAt }) {
       <div>
         <div className='flex items-center justify-between'>
         <div className='flex items-center gap-3'>
-          <div className=' cursor-pointer  w-[60px] h-[60px] rounded-full overflow-hidden -z-1'>
+          <div onClick={()=>navigate(`/profile/${author._id}`)} className=' cursor-pointer  w-[60px] h-[60px] rounded-full overflow-hidden -z-1'>
             <img src={author.profileImage || userlogo} alt="" className='w-full' />
           </div>
           <div>

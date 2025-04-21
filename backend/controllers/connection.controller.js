@@ -39,12 +39,14 @@ export const sendConnection = async (req, res)=>{
 
          let recieverSocketId = userSocketMap.get(id)
          let senderSocketId = userSocketMap.get(sender)
+         
+        
 
          if(recieverSocketId){
-            io.to(recieverSocketId).emit("statusUpdate", {updateUserId:sender, newStatus:"recieved"})
+            io.to(recieverSocketId).emit("statusUpdate", {updatedUserId:sender, newStatus:"received"})
          }
          if(senderSocketId){
-            io.to(recieverSocketId).emit("statusUpdate", {updateUserId:id, newStatus:"pandind"})
+            io.to(senderSocketId).emit("statusUpdate", {updatedUserId:id, newStatus:"pending"})
          }
 
         return res.status(200).json({success: true, newRequest})
@@ -86,10 +88,10 @@ export const acceptConnection = async (req, res)=>{
         let senderSocketId = userSocketMap.get(connection.sender._id)
 
         if(recieverSocketId){
-           io.to(recieverSocketId).emit("statusUpdate", {updateUserId:connection.sender._id, newStatus:"disconnect"})
+           io.to(recieverSocketId).emit("statusUpdate", {updatedUserId:connection.sender._id, newStatus:"disconnect"})
         }
         if(senderSocketId){
-           io.to(recieverSocketId).emit("statusUpdate", {updateUserId:connection.receiver._id, newStatus:"disconnect"})
+           io.to(senderSocketId).emit("statusUpdate", {updatedUserId:connection.receiver._id, newStatus:"disconnect"})
         }
 
 
@@ -104,9 +106,9 @@ export const acceptConnection = async (req, res)=>{
 export const rejectConnection = async (req, res)=>{
     try {
         const {connectionId} = req.params
-
+        
         const connection = await Connection.findById(connectionId)
-
+         
         if(!connection){
            return res.status(400).json({success:false, message:"connection does not exist"})
         }
@@ -117,7 +119,16 @@ export const rejectConnection = async (req, res)=>{
 
         connection.status = "rejected"
         connection.save()
-        
+       
+        let recieverSocketId = userSocketMap.get(connection.receiver._id)
+        let senderSocketId = userSocketMap.get(connection.sender._id)
+      
+        if(recieverSocketId){
+           io.to(recieverSocketId).emit("statusUpdate", {updatedUserId:connection.sender._id, newStatus:"connect"})
+        }
+        if(senderSocketId){
+           io.to(senderSocketId).emit("statusUpdate", {updatedUserId:connection.receiver._id, newStatus:"connect"})
+        }
         
         return res.status(200).json({success:true, message:"connection rejected"})
 
@@ -176,14 +187,14 @@ export const removeConnection = async (req, res)=>{
             $pull:{connection:userId}
         })
 
-        let recieverSocketId = userSocketMap.get(otherUserId)
-        let senderSocketId = userSocketMap.get(userId)
+        let recieverSocketId = userSocketMap.get(userId)
+        let senderSocketId = userSocketMap.get(otherUserId)
 
         if(recieverSocketId){
-           io.to(recieverSocketId).emit("statusUpdate", {updateUserId:userId, newStatus:"connect"})
+           io.to(recieverSocketId).emit("statusUpdate", {updatedUserId:otherUserId, newStatus:"connect"})
         }
         if(senderSocketId){
-           io.to(recieverSocketId).emit("statusUpdate", {updateUserId:otherUserId, newStatus:"connect"})
+           io.to(senderSocketId).emit("statusUpdate", {updatedUserId:userId, newStatus:"connect"})
         }
 
         return res.json({message: "Connection remove successfully"})

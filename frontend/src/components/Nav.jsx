@@ -72,7 +72,7 @@ function Nav() {
                     <div className='text-[18px] font-semibold text-gray-700'>
                         {`${userData.firstName} ${userData.lastName}`}
                     </div>
-                    <button className='w-full h-[40px] rounded-full  border-2 border-[#2dc0ff]  text-[#2dc0ff]'>View Profile</button>
+                    <button className='w-full h-[40px] rounded-full  border-2 border-[#2dc0ff]  text-[#2dc0ff]' onClick={()=>navigate(`/profile/${userData._id}`)}>View Profile</button>
                     <div className='w-full h-[1px] bg-gray-500'></div>
                     <div className='w-full  flex items-center justify-start gap-2 text-gray-600'>
                         <FaUsers className='w-[23px] h-[23px]' />

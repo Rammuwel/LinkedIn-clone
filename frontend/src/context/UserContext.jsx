@@ -54,8 +54,6 @@ function UserContext({ children }) {
          getCurrentUserData();
         fetchPosts();
     }, [])
-
-     console.log(postData )
     const value = {
         userData,
         setUserData,
