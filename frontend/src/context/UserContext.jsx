@@ -6,7 +6,7 @@ import {io} from 'socket.io-client'
 
 export const userDataContext = createContext();
 
-export let socket = io("http://localhost:8000")
+export let socket = io("https://linkedin-clone-backend-olea.onrender.com")
 
 function UserContext({ children }) {
     const [edit, setEdit] = useState(false);
