@@ -6,12 +6,12 @@ import { FaRegComment } from "react-icons/fa6";
 import moment from 'moment'
 import { authContext } from '../context/AuthContext';
 import axios from 'axios';
-import { userDataContext } from '../context/UserContext';
-import {io} from 'socket.io-client'
+import { socket, userDataContext } from '../context/UserContext';
+
 import ConnectionButton from './ConnectionButton';
 import { useNavigate, useNavigation } from 'react-router-dom';
 
-export let socket = io("http://localhost:8000")
+
 function Post({ id, author, like, comment, description, image, createdAt }) {
   const [more, setMore] = useState(false)
   const { serverUrl } = useContext(authContext)

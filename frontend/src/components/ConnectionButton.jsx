@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { authContext } from '../context/AuthContext'
 import axios from 'axios'
-import {socket} from '../components/Post.jsx'
-import { userDataContext } from '../context/UserContext'
+
+import { socket, userDataContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 
 

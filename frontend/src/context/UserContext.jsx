@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { authContext } from './AuthContext';
 import axios from 'axios';
+import {io} from 'socket.io-client'
 
 
 export const userDataContext = createContext();
 
-
+export let socket = io("http://localhost:8000")
 
 function UserContext({ children }) {
     const [edit, setEdit] = useState(false);
