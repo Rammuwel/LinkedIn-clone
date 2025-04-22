@@ -106,7 +106,7 @@ function Home() {
           </div>
 
           {
-            postData.map((post, index) => (
+           postData && postData.length>0 && postData.map((post, index) => (
               <Post key={index} id={post._id} author={post.author} description={post.description} image={post.image} like={post.like} comment={post.comment} createdAt={post.createdAt} />
             ))
           }
