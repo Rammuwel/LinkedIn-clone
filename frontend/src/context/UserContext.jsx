@@ -20,15 +20,15 @@ function UserContext({ children }) {
             let { data } = await axios.get(serverUrl + '/api/user/currentuser',
                 {
                   withCredentials: true
-                })
+                });
             if (data.user) {
                 setUserData(data.user)
             } else {
-                setUserData(null)
+                setUserData([])
             }
         } catch (error) {
             console.log(error.message)
-            setUserData(null)
+            setUserData([])
         }
     }
     
@@ -42,10 +42,10 @@ function UserContext({ children }) {
                setPostData(data.posts.reverse())
 
             }else{
-                setPostData(null)
+                setPostData([])
             }
         } catch (error) {
-            setPostData(null)
+            setPostData([])
            console.log(error.message)
         }
     }
@@ -53,8 +53,9 @@ function UserContext({ children }) {
    
     useEffect(() => {
          getCurrentUserData();
-        fetchPosts();
+         fetchPosts();
     }, [])
+    
     const value = {
         userData,
         setUserData,
