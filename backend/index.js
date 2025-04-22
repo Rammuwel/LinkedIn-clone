@@ -20,14 +20,14 @@ const server = http.createServer(app)
 
 export const io = new Server(server,{
     cors: {
-        origin: "https://linkedin-clone-frontend-v42g.onrender.com",
+        origin: "https://linkedin-clone-frontend-8nsf.onrender.com",
         credentials: true
     }
 })
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin: "https://linkedin-clone-frontend-v42g.onrender.com",
+    origin: "https://linkedin-clone-frontend-8nsf.onrender.com",
     credentials: true
 }))
 
