@@ -31,8 +31,6 @@ function Login() {
               setEmail("");
               setPassword("");
               setUserData(data.user)
-               console.log(userData)
-               console.log(data.user)
               navigate("/");
            }else{
               seterr(data.message);
