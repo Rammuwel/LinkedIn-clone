@@ -4,11 +4,11 @@ import { BiLike } from "react-icons/bi";
 import { IoSend } from "react-icons/io5";
 import { FaRegComment } from "react-icons/fa6";
 import moment from 'moment'
-import { authContext } from '../context/AuthContext';
+import { authContext } from '../context/AuthContext.jsx';
 import axios from 'axios';
-import { socket, userDataContext } from '../context/UserContext';
+import { socket, userDataContext } from '../context/UserContext.jsx';
 
-import ConnectionButton from './ConnectionButton';
+import ConnectionButton from './ConnectionButton.jsx';
 import { useNavigate, useNavigation } from 'react-router-dom';
 
 

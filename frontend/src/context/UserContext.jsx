@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { authContext } from './AuthContext';
+import { authContext } from './AuthContext.jsx';
 import axios from 'axios';
 import {io} from 'socket.io-client'
 

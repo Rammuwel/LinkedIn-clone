@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { authContext } from '../context/AuthContext'
+import { authContext } from '../context/AuthContext.jsx'
 import axios from 'axios'
 
-import { socket, userDataContext } from '../context/UserContext'
+import { socket, userDataContext } from '../context/UserContext.jsx'
 import { useNavigate } from 'react-router-dom'
 
 

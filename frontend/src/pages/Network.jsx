@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Nav from '../components/Nav'
-import { authContext } from '../context/AuthContext'
+import Nav from '../components/Nav.jsx'
+import { authContext } from '../context/AuthContext.jsx'
 import axios from 'axios';
 import userlogo from "../assets/userlogo.png"
 

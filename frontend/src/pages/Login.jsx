@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import logo from '../assets/logo.svg'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
-import { authContext } from '../context/AuthContext';
+import { authContext } from '../context/AuthContext.jsx';
 import { userDataContext } from '../context/UserContext.jsx';
 
 

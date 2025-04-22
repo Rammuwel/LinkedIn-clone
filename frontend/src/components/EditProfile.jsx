@@ -4,7 +4,7 @@ import { FiPlus } from "react-icons/fi";
 import { CiCamera } from "react-icons/ci";
 import userlogo from '../assets/userlogo.png'
 import axios from 'axios';
-import { authContext } from '../context/AuthContext';
+import { authContext } from '../context/AuthContext.jsx';
 
 function EditProfile({ setEdit, setUserData, userData }) {
     const {serverUrl} = useContext(authContext)

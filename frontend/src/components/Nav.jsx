@@ -7,7 +7,7 @@ import { IoIosNotifications } from "react-icons/io";
 import userlogo from '../assets/userlogo.png'
 import { useState } from 'react';
 import { userDataContext } from '../context/UserContext.jsx';
-import { authContext } from '../context/AuthContext';
+import { authContext } from '../context/AuthContext.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 

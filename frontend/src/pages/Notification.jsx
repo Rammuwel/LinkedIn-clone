@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Nav from '../components/Nav'
-import { authContext } from '../context/AuthContext'
+import Nav from '../components/Nav.jsx'
+import { authContext } from '../context/AuthContext.jsx'
 import axios from 'axios';
-import { userDataContext } from '../context/UserContext';
+import { userDataContext } from '../context/UserContext.jsx';
 import userlogo from "../assets/userlogo.png"
 import { RxCross1 } from "react-icons/rx";
 

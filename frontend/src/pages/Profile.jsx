@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Nav from '../components/Nav'
+import Nav from '../components/Nav.jsx'
 
 import userlogo from "../assets/userlogo.png"
 import { FiPlus } from "react-icons/fi";

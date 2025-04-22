@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import Nav from '../components/Nav'
+import Nav from '../components/Nav.jsx'
 import userlogo from "../assets/userlogo.png"
 import { FiPlus } from "react-icons/fi";
 import { RxCross1 } from "react-icons/rx";
@@ -7,10 +7,10 @@ import { FaImage } from "react-icons/fa";
 import { CiCamera } from "react-icons/ci";
 import { FaPencilAlt } from "react-icons/fa";
 import { userDataContext } from '../context/UserContext.jsx';
-import EditProfile from '../components/EditProfile';
+import EditProfile from '../components/EditProfile.jsx';
 import axios from 'axios';
-import { authContext } from '../context/AuthContext';
-import Post from '../components/Post';
+import { authContext } from '../context/AuthContext.jsx';
+import Post from '../components/Post.jsx';
 import { BiCycling } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 
