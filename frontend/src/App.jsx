@@ -13,12 +13,12 @@ function App() {
   const {userData} = useContext(userDataContext)
   return (
     <Routes>
-      <Route path="/" element={userData.length > 0 ?<Home/>:<Navigate to="/login"/>}/>
-      <Route path="/login" element={userData.length === 0?<Login/>:<Navigate to="/"/>}/>
-      <Route path="/signup" element={userData.length === 0?<SignUp/>:<Navigate to="/"/>}/>
-      <Route path="/network" element={userData.length > 0?<Network/>:<Navigate to="/login"/>}/>
-      <Route path="/profile/:id" element={userData.length > 0?<Profile/>:<Navigate to="/login"/>}/>
-      <Route path="/notification" element={userData.length > 0?<Notification/>:<Navigate to="/login"/>}/>
+      <Route path="/" element={userData?<Home/>:<Navigate to="/login"/>}/>
+      <Route path="/login" element={!userData?<Login/>:<Navigate to="/"/>}/>
+      <Route path="/signup" element={!userData?<SignUp/>:<Navigate to="/"/>}/>
+      <Route path="/network" element={userData?<Network/>:<Navigate to="/login"/>}/>
+      <Route path="/profile/:id" element={userData > 0?<Profile/>:<Navigate to="/login"/>}/>
+      <Route path="/notification" element={userData > 0?<Notification/>:<Navigate to="/login"/>}/>
     </Routes>
   )
 }
