@@ -118,8 +118,7 @@ function Home() {
         <div className='w-full lg:w-[25%]  min-h-[200px] bg-white shadow-lg rounded-l hidden lg:flex flex-col p-2'>
           <h1 className='text-[20px] font-bold text-gray-700 p-2'>Suggested User</h1>
 
-          {suggestedUser.length > 0 &&
-            <div className='flex flex-col gap-[10px]'>
+          { suggestedUser && suggestedUser.length > 0 && <div className='flex flex-col gap-[10px]'>
               {
                 suggestedUser.map((item, index) => (
                   <div onClick={() => navigate(`/profile/${item._id}`) } key={index} className='border-b-2 cursor-pointer border-b-gray-200 p-2  flex items-center gap-3'>
