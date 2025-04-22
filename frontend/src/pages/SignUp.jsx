@@ -38,16 +38,18 @@ function SignUp() {
               setUserName("");
               setEmail("");
               setPassword("");
+               setIsLoadin(false)
               setUserData(data.user)
               navigate("/");
            }else{
+            setIsLoadin(false)
             seterr(data.message)
            }
 
            setIsLoadin(false)
         } catch (error) {
             console.log(error.message)
-            setIsLoadin(true)
+           setIsLoadin(false)
         }
     }
 
