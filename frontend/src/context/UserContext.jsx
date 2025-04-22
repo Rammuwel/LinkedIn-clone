@@ -24,11 +24,11 @@ function UserContext({ children }) {
             if (data.user) {
                 setUserData(data.user)
             } else {
-                setUserData([])
+                setUserData(null)
             }
         } catch (error) {
             console.log(error.message)
-            setUserData([])
+            setUserData(null)
         }
     }
     
@@ -42,10 +42,10 @@ function UserContext({ children }) {
                setPostData(data.posts.reverse())
 
             }else{
-                setPostData([])
+                setPostData(null)
             }
         } catch (error) {
-            setPostData([])
+            setPostData(null)
            console.log(error.message)
         }
     }
