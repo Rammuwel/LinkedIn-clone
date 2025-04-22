@@ -52,9 +52,14 @@ function UserContext({ children }) {
 
    
     useEffect(() => {
-         getCurrentUserData();
+      
          fetchPosts();
     }, [])
+    
+      useEffect(() => {
+         getCurrentUserData();
+      
+    }, [userData])
     
     const value = {
         userData,
