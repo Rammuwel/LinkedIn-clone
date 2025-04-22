@@ -43,6 +43,7 @@ function UserContext({ children }) {
 
             }else{
                 setPostData(null)
+                
             }
         } catch (error) {
             setPostData(null)
@@ -52,13 +53,11 @@ function UserContext({ children }) {
 
    
     useEffect(() => {
-      
-         fetchPosts();
+            getCurrentUserData();
     }, [])
     
       useEffect(() => {
-         getCurrentUserData();
-      
+           fetchPosts();
     }, [userData])
     
     const value = {
